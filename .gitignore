@@ -34,3 +34,7 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+
+# Village Asset
+Village Asset.meta
+Village Asset/
