@@ -21139,6 +21139,7 @@ GameObject:
   - component: {fileID: 534669907}
   - component: {fileID: 534669909}
   - component: {fileID: 534669908}
+  - component: {fileID: 534669910}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: Untagged
@@ -21217,7 +21218,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2ef26d1d92cf45b7bb3d0b61ec2ea20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 1055516108}
 --- !u!45 &534669907
 Skybox:
   m_ObjectHideFlags: 0
@@ -25816,6 +25816,18 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!114 &534669910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 534669902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cb086db60e09ea46a30529679bbdf9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 0}
 --- !u!1001 &535553407
 Prefab:
   m_ObjectHideFlags: 0
@@ -46201,9 +46213,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1055516108}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf9c9467632296f48957209cb73dcc6c, type: 3}
+  m_Script: {fileID: 11500000, guid: ec3ae64c60438a94095f0fe1ef6b5866, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  add_speed: 0
 --- !u!54 &1055516111
 Rigidbody:
   m_ObjectHideFlags: 0
