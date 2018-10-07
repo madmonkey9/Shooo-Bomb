@@ -16,7 +16,10 @@ public class Player : MonoBehaviour {
     Vector3 prevPos;
     //현재프레임위치와 전프레임위치값.
     Vector3 diffPos;
+    //전진 방향
     Vector3 dir_forward = Vector3.forward;
+    Vector3 dir_left = Vector3.left;
+    Vector3 dir_right = Vector3.right;
     //리지드 바디;
     Rigidbody rb;
     //파티클 시스템
@@ -32,52 +35,44 @@ public class Player : MonoBehaviour {
 
     void Update ()
     {
-        //Vector3 vel = new Vector3();
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    click = true;
-        //}
-        //if (Input.GetMouseButtonUp(0))
-        //{
-        //    click = false;
+        Vector3 vel = new Vector3();
+        //터치를 하고있는지 여부
+        if (Input.GetMouseButtonDown(0))
+        {
+            prevPos = Input.mousePosition;
+            click = true;
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            click = false;
 
-        //}
-        ////터치입력을 통해 player의 방향을 결정해서 움직이게 한다.
-        //if (click) //직진할때 터치를 통해 양옆으로 움직이기
-        //{
-        //    float moveHorizontal = Input.GetAxis("Mouse X");
-           
-            
-            
-        //    //vel = diffPos / Time.deltaTime;
-        //    //prevPos = Input.mousePosition.position;
-        //}
-        
-        //if (vel.x > threshold)//왼쪽으로 회전이동하고 그 방향으로 직진
-        //{
-               
-        //}
-        //else if(vel.y < -threshold) // 오른쪽으로 회전이동 그 방향으로 직진
-        //{
+        }
+        //click하고 있을 때 전프레임과 지금 프레임과의 위치차이 구하고 속도 구하기
+        if (click)
+        {
+            diffPos = Input.mousePosition - prevPos;
+            vel = diffPos / Time.deltaTime;
+            prevPos = Input.mousePosition;
+        }
 
-        //}
-        if(Input.GetKeyDown(KeyCode.Alpha1))
+        if (click && Input.mousePosition.x < Screen.width / 2) // 스크린 왼쪽 터치하면 왼쪽으로 틀음.
         {
             BallControllLeft();
         }
-        else if(Input.GetKeyDown(KeyCode.Alpha2))
+        else if (click && Input.mousePosition.x >= Screen.width / 2) //스크린 오른쪽 터치하면 오른쪽으로 틀음.
         {
             BallControllRight();
         }
-        else if(Input.GetKeyDown(KeyCode.Alpha3))
+        else if (Input.GetKeyDown(KeyCode.LeftArrow)) //왼쪽방향키 눌렀을때 -90도 회전하고 진행방향 바꿈.
         {
             BallTurnLeft();
         }
-        else if(Input.GetKeyDown(KeyCode.Alpha4))
+        else if (Input.GetKeyDown(KeyCode.RightArrow)) //오른쪽방향키 눌렀을때 90도 회전하고 진행방향 바꿈.
         {
             BallTurnRight();
         }
         BallMovement(dir_forward);
+
 
 
     }
@@ -88,25 +83,33 @@ public class Player : MonoBehaviour {
     {
         rb.AddForce(dir * add_speed);
     }
+    //터치했을때 직진하면서 왼쪽으로 움직이는 함수
     void BallControllLeft()
     {
-        rb.AddForce(Vector3.left * controll_force);
+        rb.AddForce(dir_left * controll_force);
     }
+    //터치했을때 직진하면서 오른쪽으로 움직이는 함수
     void BallControllRight()
     {
-        rb.AddForce(Vector3.right * controll_force);
-        }
+        rb.AddForce(dir_right * controll_force);
+    }
+    //터치슬라이드했을때 -90도로 진행방향 바꾸는 함수
     void BallTurnLeft()
     {
         Vector3 dir = rb.velocity;
         dir.Normalize();
         dir_forward = Quaternion.Euler(0, -90, 0) * dir;
+        dir_left = Quaternion.Euler(0, -90, 0) * dir_left;
+        dir_right = Quaternion.Euler(0, -90, 0) * dir_right;
     }
+    //터치슬라이드했을때 90도로 진행방향 바꾸는 함수
     void BallTurnRight()
     {
         Vector3 dir = rb.velocity;
         dir.Normalize();
         dir_forward = Quaternion.Euler(0, 90, 0) * dir;
+        dir_left = Quaternion.Euler(0, 90, 0) * dir_left;
+        dir_right = Quaternion.Euler(0, 90, 0) * dir_right;
     }
 
     private void OnTriggerEnter(Collider other)
