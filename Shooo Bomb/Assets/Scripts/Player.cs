@@ -19,10 +19,13 @@ public class Player : MonoBehaviour {
     Vector3 dir_forward = Vector3.forward;
     //리지드 바디;
     Rigidbody rb;
+    //파티클 시스템
+    ParticleSystem particle;
     // Use this for initialization
     void Start ()
     {
         rb = GetComponent<Rigidbody>();
+        particle = GetComponent<ParticleSystem>();
     }
 
     // Update is called once per frame
@@ -104,5 +107,15 @@ public class Player : MonoBehaviour {
         Vector3 dir = rb.velocity;
         dir.Normalize();
         dir_forward = Quaternion.Euler(0, 90, 0) * dir;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "obstacle")
+        {
+            rb.isKinematic = true;
+            particle.Play();
+            Destroy(gameObject, particle.duration);
+        }
     }
 }
