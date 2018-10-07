@@ -4,55 +4,105 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
-    //plus속도(곱하기)
+    //plus속도
     public float add_speed;
-    
+    //좌우로 움직일때 힘;
+    public float controll_force;
+    //mouse(touch)가 지속되고 있나.
+    bool click;
+    // 터치슬라이드를 한 기준 속도(임계값)
+    public float threshold;
+    //전프레임위치값
+    Vector3 prevPos;
+    //현재프레임위치와 전프레임위치값.
+    Vector3 diffPos;
+    Vector3 dir_forward = Vector3.forward;
+    //리지드 바디;
     Rigidbody rb;
-    //player's particle system
-    ParticleSystem particle;
-    //player의 초기 위치
-	// Use this for initialization
-	void Start () {
-        //Rigidbody라는 컴포넌트를 생성한다.
+    // Use this for initialization
+    void Start ()
+    {
         rb = GetComponent<Rigidbody>();
-        //create Particle System Component.
-        particle = GetComponent<ParticleSystem>();
-	}
+    }
 
     // Update is called once per frame
+
     void Update ()
     {
-        //player가 직진할 때의 움직임 구현. touch할 때 옆으로 이동
-        if(Input.touchCount >0 && Input.GetTouch(0).position.x<Screen.width/2)
-        {
-            this.transform.Translate((Vector3.left + Vector3.forward) * add_speed * Time.deltaTime);
-        }
-        else if(Input.touchCount >0 && Input.GetTouch(0).position.x >=Screen.width/2)
-        {
-            this.transform.Translate((Vector3.right + Vector3.forward) * add_speed * Time.deltaTime);
-        }
-        else
-        {
-            this.transform.Translate(Vector3.forward * add_speed * Time.deltaTime);
+        //Vector3 vel = new Vector3();
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    click = true;
+        //}
+        //if (Input.GetMouseButtonUp(0))
+        //{
+        //    click = false;
 
-        }
-        //터치슬라이드를 했을때 양옆으로 90도 꺾기
-
-
-        //전진하는 속도
-
+        //}
+        ////터치입력을 통해 player의 방향을 결정해서 움직이게 한다.
+        //if (click) //직진할때 터치를 통해 양옆으로 움직이기
+        //{
+        //    float moveHorizontal = Input.GetAxis("Mouse X");
+           
+            
+            
+        //    //vel = diffPos / Time.deltaTime;
+        //    //prevPos = Input.mousePosition.position;
+        //}
         
+        //if (vel.x > threshold)//왼쪽으로 회전이동하고 그 방향으로 직진
+        //{
+               
+        //}
+        //else if(vel.y < -threshold) // 오른쪽으로 회전이동 그 방향으로 직진
+        //{
 
-	}
+        //}
+        if(Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            BallControllLeft();
+        }
+        else if(Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            BallControllRight();
+        }
+        else if(Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            BallTurnLeft();
+        }
+        else if(Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            BallTurnRight();
+        }
+        BallMovement(dir_forward);
 
-    private void OnTriggerEnter(Collider other)
+
+    }
+
+    //Translate로 공을 움직이게 하는 함수
+    //인자값은 방향을 나타내는 벡터
+    void BallMovement(Vector3 dir)
     {
-       
-            rb.isKinematic = true;   
-            particle.Play();
-            Destroy(gameObject, particle.duration);
-       
-
-       
+        rb.AddForce(dir * add_speed);
+    }
+    void BallControllLeft()
+    {
+        rb.AddForce(Vector3.left * controll_force);
+    }
+    void BallControllRight()
+    {
+        rb.AddForce(Vector3.right * controll_force);
+        }
+    void BallTurnLeft()
+    {
+        Vector3 dir = rb.velocity;
+        dir.Normalize();
+        dir_forward = Quaternion.Euler(0, -90, 0) * dir;
+    }
+    void BallTurnRight()
+    {
+        Vector3 dir = rb.velocity;
+        dir.Normalize();
+        dir_forward = Quaternion.Euler(0, 90, 0) * dir;
     }
 }
