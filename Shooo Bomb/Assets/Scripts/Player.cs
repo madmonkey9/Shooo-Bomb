@@ -8,10 +8,15 @@ public class Player : MonoBehaviour {
     public float add_speed;
     
     Rigidbody rb;
+    //player's particle system
+    ParticleSystem particle;
+    //player의 초기 위치
 	// Use this for initialization
 	void Start () {
         //Rigidbody라는 컴포넌트를 생성한다.
         rb = GetComponent<Rigidbody>();
+        //create Particle System Component.
+        particle = GetComponent<ParticleSystem>();
 	}
 
     // Update is called once per frame
@@ -36,5 +41,18 @@ public class Player : MonoBehaviour {
 
         //전진하는 속도
 
+        
+
 	}
+
+    private void OnTriggerEnter(Collider other)
+    {
+       
+            rb.isKinematic = true;   
+            particle.Play();
+            Destroy(gameObject, particle.duration);
+       
+
+       
+    }
 }
