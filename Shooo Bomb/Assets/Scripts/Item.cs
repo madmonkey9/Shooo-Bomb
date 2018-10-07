@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Item : MonoBehaviour {
 
-    //sboseong(서보성) 제작
-
         public GameObject Fast_Item; //Fast_Item의 오브젝트
         public GameObject Big_Player_Item; //Big_Item의 오브젝트
         public GameObject Blind_Item; //Blind_Item의 오브젝트
@@ -13,14 +11,11 @@ public class Item : MonoBehaviour {
 
         private Rigidbody rb; //Player의 Rigidbody를 담기 위한 변수
         private Transform tr; //Player의 Transform을 담기 위한 변수
-                              /*    private int Big_Player_use_cnt; // 아이템을 사용한 횟수
-                                  private int Big_Player_cnt; //아이템을 먹은 횟수 */
-        private
+        private float fast_timer; //fast 아이템을 먹은 후에 시간을 측정하기 위한 변수
+        private int end_timer = 3; // 아이템의 적용시간을 나타내는 변수
 
         void Start()
         {
-            /*       Big_Player_cnt = 0;
-                   Big_Player_use_cnt = 0; */
             rb = GetComponent<Rigidbody>();
             tr = GetComponent<Transform>();
             Blind_Wall.SetActive(false); // Blind_Wall 비활성화
@@ -31,24 +26,16 @@ public class Item : MonoBehaviour {
             //속도를 빠르게 만들기
             if (Fast_Item.activeSelf == false)
             {
-                float moveHorizontal = Input.GetAxis("Horizontal");
-                float moveVertical = Input.GetAxis("Vertical");
+                if (fast_timer < end_timer)
+                {
+                    float moveHorizontal = Input.GetAxis("Horizontal");
+                    float moveVertical = Input.GetAxis("Vertical");
 
-                Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
-
-                rb.AddForce(movement * 75);
+                    Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
+                    
+                    rb.AddForce(movement * 75);
+                }
             }
-
-            /*      //공의 크기가 2배로 증가
-                    //(카운트를 사용하여 계속 커지는 것을 방지)
-                    if ((Big_Player_cnt > Big_Player_use_cnt) && (Big_Player_Item.activeSelf == false))
-                    {
-                        tr.position = new Vector3(tr.position.x, tr.position.y * 2, tr.position.z);
-                        tr.localScale += tr.localScale;
-
-                        ++Big_Player_use_cnt; 
-                    } */
-
         }
 
         //오브젝트가 충돌했을 때 -> 아이템을 만났을 때 [장애물을 만났을 때도 이 함수를 사용할 경우에는, 다음에 나올 switch문에 default로 빠져 나갈 수 있다.]
@@ -61,6 +48,7 @@ public class Item : MonoBehaviour {
             switch (Item_tag)
             {
                 case "Fast_Item":
+                    fast_timer = 0;
                     break;
                 case "Big_Item":
                     Eat_Big_Item();
@@ -73,26 +61,6 @@ public class Item : MonoBehaviour {
                 default:
                     break;
             }
-
-            /*        //Fast_Item을 먹었을 때
-                    if (other.gameObject.CompareTag("Fast_Item"))
-                    {
-                        other.gameObject.SetActive(false);
-
-                    }
-
-                    //Big_Item을 먹었을 때
-                    if (other.gameObject.CompareTag("Big_Item"))
-                    {
-                        other.gameObject.SetActive(false);
-                        ++Big_Player_cnt;
-                    }
-
-                    //Blind_Item을 먹었을 때
-                    if (other.gameObject.CompareTag("Blind_Item"))
-                    {
-                        other.gameObject.SetActive(false);
-                    }*/
         }
 
         void Eat_Big_Item()
