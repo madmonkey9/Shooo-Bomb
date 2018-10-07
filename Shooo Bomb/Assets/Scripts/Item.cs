@@ -26,6 +26,8 @@ public class Item : MonoBehaviour {
             //속도를 빠르게 만들기
             if (Fast_Item.activeSelf == false)
             {
+                fast_timer += Time.deltaTime;
+
                 if (fast_timer < end_timer)
                 {
                     float moveHorizontal = Input.GetAxis("Horizontal");
@@ -33,7 +35,7 @@ public class Item : MonoBehaviour {
 
                     Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
                     
-                    rb.AddForce(movement * 75);
+                    rb.AddForce(movement * 20);
                 }
             }
         }
@@ -41,20 +43,20 @@ public class Item : MonoBehaviour {
         //오브젝트가 충돌했을 때 -> 아이템을 만났을 때 [장애물을 만났을 때도 이 함수를 사용할 경우에는, 다음에 나올 switch문에 default로 빠져 나갈 수 있다.]
         void OnTriggerEnter(Collider other)
         {
-            string Item_tag = other.gameObject.tag; //초기에 if문으로 작성했지만 switch문으로 바꾸기 위해서 변수 지정
+            string Item_name = other.gameObject.name; //초기에 if문으로 작성했지만 switch문으로 바꾸기 위해서 변수 지정
 
             other.gameObject.SetActive(false); //아이템 삭제
 
-            switch (Item_tag)
+            switch (Item_name)
             {
-                case "Fast_Item":
+                case "item1(Speed)":
                     fast_timer = 0;
                     break;
-                case "Big_Item":
+                case "item1(bigger)":
                     Eat_Big_Item();
                     Invoke("Back_Big_Item", 3);
                     break;
-                case "Blind_Item":
+                case "item1(blind)":
                     Blind_Wall.SetActive(true);
                     Invoke("Eat_Blind_Item", 3);
                     break;
