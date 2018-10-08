@@ -85,11 +85,7 @@ public class Player : MonoBehaviour {
         }
         BallMovement(dir_forward);
 
-        if(tr.position.y < -1.0f)
-        {
-            Intialize();
-            Debug.Log("play");
-        }
+        
 
     }
 
@@ -137,6 +133,7 @@ public class Player : MonoBehaviour {
         switch (tagName)
         {
             case "obstacle":
+            case "wall":
                 Explode();
                 break;
             case "item":
@@ -156,8 +153,9 @@ public class Player : MonoBehaviour {
 
     void getBigger()
     {
-        tr.position = new Vector3(tr.position.x, tr.position.y * 2, tr.position.z);
-        tr.localScale += tr.localScale;
+        //tr.position = new Vector3(tr.position.x, tr.position.y * 2, tr.position.z);
+        // tr.localScale += tr.localScale;
+        iTween.ScaleBy(gameObject, tr.localScale * 2, 1);
         Invoke("backupBig", endTimer);
     }
 
@@ -169,22 +167,23 @@ public class Player : MonoBehaviour {
 
     void doubleSpeed()
     {
-        add_speed *= Additional_speed;
+        add_speed += Additional_speed;
         Invoke("backupSpeed", endTimer);
         
     }
 
     void backupBig()
     {
-        tr.position = new Vector3(tr.position.x, tr.position.y / 2, tr.position.z);
-        tr.localScale -= tr.localScale / 2;
+        //tr.position = new Vector3(tr.position.x, tr.position.y / 2, tr.position.z);
+        //tr.localScale -= tr.localScale / 2;
+        iTween.ScaleBy(gameObject, tr.localScale / 2, 1);
 
 
     }
 
     void backupSpeed()
     {
-        add_speed /= Additional_speed;
+        add_speed -= Additional_speed;
     }
 
     void backupBlind()
@@ -199,8 +198,5 @@ public class Player : MonoBehaviour {
         Destroy(gameObject, particle.duration);
     }
 
-    void Intialize()
-    {
-        iTween.MoveTo(gameObject, iTween.Hash("amount" ,initialPos, "easeType", iTween.EaseType.easeOutExpo));
-    }
+    
 }
