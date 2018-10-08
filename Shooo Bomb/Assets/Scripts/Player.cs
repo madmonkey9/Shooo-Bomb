@@ -95,17 +95,17 @@ public class Player : MonoBehaviour {
     //인자값은 방향을 나타내는 벡터
     void BallMovement(Vector3 dir)
     {
-        rb.AddForce(dir * add_speed);
+        rb.AddForce(dir * add_speed );
     }
     //터치했을때 직진하면서 왼쪽으로 움직이는 함수
     void BallControllLeft()
     {
-        rb.AddForce(dir_left * controll_force);
+        rb.MovePosition(new Vector3(tr.position.x -0.1f , tr.position.y , tr.position.z));
     }
     //터치했을때 직진하면서 오른쪽으로 움직이는 함수
     void BallControllRight()
     {
-        rb.AddForce(dir_right * controll_force);
+        rb.MovePosition(new Vector3(tr.position.x + 0.1f, tr.position.y, tr.position.z));
     }
     //터치슬라이드했을때 -90도로 진행방향 바꾸는 함수
     void BallTurnLeft()
@@ -123,6 +123,7 @@ public class Player : MonoBehaviour {
         dir.Normalize();
         dir_forward = Quaternion.Euler(0, 90, 0) * dir;
         dir_left = Quaternion.Euler(0, 90, 0) * dir_left;
+            
         dir_right = Quaternion.Euler(0, 90, 0) * dir_right;
     }
 
