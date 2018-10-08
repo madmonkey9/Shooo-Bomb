@@ -153,9 +153,9 @@ public class Player : MonoBehaviour {
 
     void getBigger()
     {
-        //tr.position = new Vector3(tr.position.x, tr.position.y * 2, tr.position.z);
-        // tr.localScale += tr.localScale;
-        iTween.ScaleBy(gameObject, tr.localScale * 2, 1);
+        tr.position = new Vector3(tr.position.x, tr.position.y * 2, tr.position.z);
+        
+        iTween.ScaleTo(gameObject, tr.localScale * 2, 1);
         Invoke("backupBig", endTimer);
     }
 
@@ -174,8 +174,8 @@ public class Player : MonoBehaviour {
 
     void backupBig()
     {
-        //tr.position = new Vector3(tr.position.x, tr.position.y / 2, tr.position.z);
-        //tr.localScale -= tr.localScale / 2;
+        tr.position = new Vector3(tr.position.x, tr.position.y / 2, tr.position.z);
+       
         iTween.ScaleBy(gameObject, tr.localScale / 2, 1);
 
 
