@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraConroller : MonoBehaviour
+public class CameraController : MonoBehaviour
 {
     public GameObject player;
     public float distance = 1;
@@ -31,6 +31,6 @@ public class CameraConroller : MonoBehaviour
         dir.Normalize();
         transform.position = player.transform.position + dir * distance + angle;
         transform.forward = player.transform.position - transform.position;
-
+ 
     }
 }
