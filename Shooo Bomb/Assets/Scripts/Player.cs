@@ -26,8 +26,8 @@ public class Player : MonoBehaviour {
     ParticleSystem particle;
     //트랜스폼
     Transform tr;
-    float fastTimer;
     float endTimer = 3.0f;
+    Vector3 initialPos;
 
     
     public GameObject Blind_Wall; //Blind_Wall의 오브젝트
@@ -38,6 +38,7 @@ public class Player : MonoBehaviour {
         particle = GetComponent<ParticleSystem>();
         tr = GetComponent<Transform>();
         Blind_Wall.SetActive(false);
+        initialPos = tr.position;
     }
 
     // Update is called once per frame
@@ -82,7 +83,11 @@ public class Player : MonoBehaviour {
         }
         BallMovement(dir_forward);
 
-
+        if(tr.position.y < -1.0f)
+        {
+            Intialize();
+            Debug.Log("play");
+        }
 
     }
 
@@ -190,5 +195,10 @@ public class Player : MonoBehaviour {
         rb.isKinematic = true;
         particle.Play();
         Destroy(gameObject, particle.duration);
+    }
+
+    void Intialize()
+    {
+        iTween.MoveTo(gameObject, iTween.Hash("amount" ,initialPos, "easeType", iTween.EaseType.easeOutExpo));
     }
 }
