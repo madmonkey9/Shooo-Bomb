@@ -6,6 +6,8 @@ public class Player : MonoBehaviour {
 
     //plus속도
     public float add_speed;
+    //fast아이템을 획득한 후 속도
+    public float Additional_speed;
     //좌우로 움직일때 힘;
     public float controll_force;
     //mouse(touch)가 지속되고 있나.
@@ -167,7 +169,7 @@ public class Player : MonoBehaviour {
 
     void doubleSpeed()
     {
-        add_speed *= 2;
+        add_speed *= Additional_speed;
         Invoke("backupSpeed", endTimer);
         
     }
@@ -182,7 +184,7 @@ public class Player : MonoBehaviour {
 
     void backupSpeed()
     {
-        add_speed /= 2;
+        add_speed /= Additional_speed;
     }
 
     void backupBlind()
