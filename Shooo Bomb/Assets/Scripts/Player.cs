@@ -24,11 +24,20 @@ public class Player : MonoBehaviour {
     Rigidbody rb;
     //파티클 시스템
     ParticleSystem particle;
+    //트랜스폼
+    Transform tr;
+    float fastTimer;
+    float endTimer = 3.0f;
+
+    
+    public GameObject Blind_Wall; //Blind_Wall의 오브젝트
     // Use this for initialization
     void Start ()
     {
         rb = GetComponent<Rigidbody>();
         particle = GetComponent<ParticleSystem>();
+        tr = GetComponent<Transform>();
+        Blind_Wall.SetActive(false);
     }
 
     // Update is called once per frame
@@ -114,11 +123,72 @@ public class Player : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "obstacle")
+        string tagName = other.gameObject.tag;
+        string itemName = other.gameObject.name;
+
+        other.gameObject.SetActive(false);
+        switch (tagName)
         {
-            rb.isKinematic = true;
-            particle.Play();
-            Destroy(gameObject, particle.duration);
+            case "obstacle":
+                Explode();
+                break;
+            case "item":
+                if (itemName.Equals("item_bigger")) 
+                    getBigger();
+                else if (itemName.Equals("item_speed"))
+                    doubleSpeed();
+                else if (itemName.Equals("item_blind"))
+                    getBlind();
+                break;
+            default:
+                break;
         }
+    }
+
+   
+
+    void getBigger()
+    {
+        tr.position = new Vector3(tr.position.x, tr.position.y * 2, tr.position.z);
+        tr.localScale += tr.localScale;
+        Invoke("backupBig", endTimer);
+    }
+
+    void getBlind()
+    {
+        Blind_Wall.SetActive(true);
+        Invoke("backupBlind", endTimer);
+    }
+
+    void doubleSpeed()
+    {
+        add_speed *= 2;
+        Invoke("backupSpeed", endTimer);
+        
+    }
+
+    void backupBig()
+    {
+        tr.position = new Vector3(tr.position.x, tr.position.y / 2, tr.position.z);
+        tr.localScale -= tr.localScale / 2;
+
+
+    }
+
+    void backupSpeed()
+    {
+        add_speed /= 2;
+    }
+
+    void backupBlind()
+    {
+        Blind_Wall.SetActive(false);
+    }
+
+    void Explode()
+    {
+        rb.isKinematic = true;
+        particle.Play();
+        Destroy(gameObject, particle.duration);
     }
 }
