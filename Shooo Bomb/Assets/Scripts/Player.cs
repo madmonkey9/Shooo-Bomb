@@ -95,17 +95,17 @@ public class Player : MonoBehaviour {
     //인자값은 방향을 나타내는 벡터
     void BallMovement(Vector3 dir)
     {
-        rb.AddForce(dir * add_speed );
+        rb.AddForce(dir * add_speed * Time.deltaTime );
     }
     //터치했을때 직진하면서 왼쪽으로 움직이는 함수
     void BallControllLeft()
     {
-        rb.MovePosition(new Vector3(tr.position.x -0.1f , tr.position.y , tr.position.z));
+        rb.AddForce(dir_left * add_speed * Time.deltaTime);
     }
     //터치했을때 직진하면서 오른쪽으로 움직이는 함수
     void BallControllRight()
     {
-        rb.MovePosition(new Vector3(tr.position.x + 0.1f, tr.position.y, tr.position.z));
+        rb.AddForce(dir_right * add_speed * Time.deltaTime);
     }
     //터치슬라이드했을때 -90도로 진행방향 바꾸는 함수
     void BallTurnLeft()
@@ -136,10 +136,7 @@ public class Player : MonoBehaviour {
         other.gameObject.SetActive(false);
         switch (tagName)
         {
-            case "obstacle":
-            case "wall":
-                Explode();
-                break;
+            
             case "item":
                 if (itemName.Equals("item_bigger")) 
                     getBigger();
@@ -153,7 +150,19 @@ public class Player : MonoBehaviour {
         }
     }
 
-   
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "obstacle") {
+            Explode();
+        }
+
+        if(collision.gameObject.tag.Equals("wall"))
+        {
+            Explode();
+        }
+    }
+
+
     //플레이어의 크기를 2배로 증가시키는 함수
     void getBigger()
     {
