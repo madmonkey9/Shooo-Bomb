@@ -4,24 +4,23 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
-    //plus속도
-    public float add_speed;
+    //공의 속도 조절을 위한 변수
+    public float speed;
+    //공의 방향을 설정하기 위한 변수
+    int Mode;
+    //공을 멈추기위한 타이머 시작
+    float timer = -1.0f; // 타이머가 돌지 않게 하기 위해 -1로 설정
+    //공을 멈추기위한 타이머의 끝
+    float E_timer = 0.2f;
     //fast아이템을 획득한 후 속도
     public float Additional_speed;
-    //좌우로 움직일때 힘;
-    public float controll_force;
-    //mouse(touch)가 지속되고 있나.
+    //마우스 눌렀을 때의 위치.
+    Vector3 startPos;
+    Vector3 endPos;
     bool click;
-    // 터치슬라이드를 한 기준 속도(임계값)
-    public float threshold;
-    //전프레임위치값
-    Vector3 prevPos;
-    //현재프레임위치와 전프레임위치값.
-    Vector3 diffPos;
-    //전진 방향
-    Vector3 dir_forward = Vector3.forward;
-    Vector3 dir_left = Vector3.left;
-    Vector3 dir_right = Vector3.right;
+    
+ 
+    
     //리지드 바디;
     Rigidbody rb;
     //파티클 시스템
@@ -37,6 +36,7 @@ public class Player : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
+        Mode = 0;
         rb = GetComponent<Rigidbody>();
         particle = GetComponent<ParticleSystem>();
         tr = GetComponent<Transform>();
@@ -49,43 +49,75 @@ public class Player : MonoBehaviour {
 
     void Update ()
     {
-        Vector3 vel = new Vector3();
-        //터치를 하고있는지 여부
-        if (Input.GetMouseButtonDown(0))
+        //모드를 4 -> 0으로 바꿈
+        if(Mode > 3)
         {
-            prevPos = Input.mousePosition;
-            click = true;
+            Mode %= 4;
         }
-        if (Input.GetMouseButtonUp(0))
+        //모드를 음수에서 양수로 바꿈
+        if(Mode < 0)
+        {
+            Mode += 4;
+        }
+
+        switch (Mode)
+        {
+            case 0: // z가 증가하는 방향으로 전진
+                DefaultMove(Vector3.forward);
+                MoveLeft(Vector3.left);
+                MoveRight(Vector3.right);
+                break;
+            case 1: // x가 감소하는 방향으로 전진
+                DefaultMove(Vector3.left);
+                MoveLeft(Vector3.back);
+                MoveRight(Vector3.forward);
+                break;
+            case 2: //z가 감소하는 방향으로 전진
+                DefaultMove(Vector3.back);
+                MoveLeft(Vector3.right);
+                MoveRight(Vector3.left);
+                break;
+            case 3: // x가 증가하는 방향으로 전진
+                DefaultMove(Vector3.right);
+                MoveLeft(Vector3.forward);
+                MoveRight(Vector3.back);
+
+                break;
+        }
+
+        if(Input.GetMouseButtonDown(0))
+        {
+            click = true;
+            startPos = Input.mousePosition;
+        }
+
+        if(Input.GetMouseButtonUp(0))
         {
             click = false;
-
-        }
-        //click하고 있을 때 전프레임과 지금 프레임과의 위치차이 구하고 속도 구하기
-        if (click)
-        {
-            diffPos = Input.mousePosition - prevPos;
-            vel = diffPos / Time.deltaTime;
-            prevPos = Input.mousePosition;
+            endPos = Input.mousePosition;
         }
 
-        if (click && Input.mousePosition.x < Screen.width / 2) // 스크린 왼쪽 터치하면 왼쪽으로 틀음.
+        
+       
+
+        
+        
+
+        if(Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            BallControllLeft();
+            
+            Mode += 1;
+            timer = 0.0f;
+            Turn();
         }
-        else if (click && Input.mousePosition.x >= Screen.width / 2) //스크린 오른쪽 터치하면 오른쪽으로 틀음.
+
+        if(Input.GetKeyDown(KeyCode.RightArrow))
         {
-            BallControllRight();
+            Mode -= 1;
+            timer = 0.0f;
+            Turn();
         }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow)) //왼쪽방향키 눌렀을때 -90도 회전하고 진행방향 바꿈.
-        {
-            BallTurnLeft();
-        }
-        else if (Input.GetKeyDown(KeyCode.RightArrow)) //오른쪽방향키 눌렀을때 90도 회전하고 진행방향 바꿈.
-        {
-            BallTurnRight();
-        }
-        BallMovement(dir_forward);
+        
 
         
 
@@ -93,38 +125,37 @@ public class Player : MonoBehaviour {
 
     //Translate로 공을 움직이게 하는 함수
     //인자값은 방향을 나타내는 벡터
-    void BallMovement(Vector3 dir)
+    void DefaultMove(Vector3 dir)
     {
-        rb.AddForce(dir * add_speed * Time.deltaTime );
+        rb.AddForce(dir.normalized * speed * Time.deltaTime );
     }
-    //터치했을때 직진하면서 왼쪽으로 움직이는 함수
-    void BallControllLeft()
+
+    void MoveLeft(Vector3 dir)
     {
-        rb.AddForce(dir_left * add_speed * Time.deltaTime);
+        if (click && startPos.x < Screen.width / 2)
+            tr.Translate(dir * Time.deltaTime);
     }
-    //터치했을때 직진하면서 오른쪽으로 움직이는 함수
-    void BallControllRight()
+
+    void MoveRight(Vector3 dir)
     {
-        rb.AddForce(dir_right * add_speed * Time.deltaTime);
+        if (click && startPos.x >= Screen.width / 2)
+            tr.Translate(dir * Time.deltaTime);
     }
-    //터치슬라이드했을때 -90도로 진행방향 바꾸는 함수
-    void BallTurnLeft()
-    {
-        Vector3 dir = rb.velocity;
-        dir.Normalize();
-        dir_forward = Quaternion.Euler(0, -90, 0) * dir;
-        dir_left = Quaternion.Euler(0, -90, 0) * dir_left;
-        dir_right = Quaternion.Euler(0, -90, 0) * dir_right;
-    }
+    
+    
+    
     //터치슬라이드했을때 90도로 진행방향 바꾸는 함수
-    void BallTurnRight()
+    void Turn()
     {
-        Vector3 dir = rb.velocity;
-        dir.Normalize();
-        dir_forward = Quaternion.Euler(0, 90, 0) * dir;
-        dir_left = Quaternion.Euler(0, 90, 0) * dir_left;
-            
-        dir_right = Quaternion.Euler(0, 90, 0) * dir_right;
+        
+        while(timer >= 0.0f && timer < E_timer)
+        {
+            timer += Time.deltaTime;
+
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+        }
+        
     }
 
     private void OnTriggerEnter(Collider other)
@@ -182,7 +213,7 @@ public class Player : MonoBehaviour {
     //플레이어의 속도가 2배가 되는 함수
     void doubleSpeed()
     {
-        add_speed += Additional_speed;
+        speed += Additional_speed;
         Invoke("backupSpeed", endTimer);
         
     }
@@ -200,7 +231,7 @@ public class Player : MonoBehaviour {
     //속도 복구 함수
     void backupSpeed()
     {
-        add_speed -= Additional_speed;
+       speed -= Additional_speed;
     }
 
     //시야차단막 비활성화
@@ -212,6 +243,8 @@ public class Player : MonoBehaviour {
     //벽이나 장애물에 닿았을 경우 발생(폭발)
     void Explode()
     {
+        speed = 0;
+        //gameObject.SetActive(false);
         rb.isKinematic = true;
         particle.Play();
         Destroy(gameObject, particle.duration);

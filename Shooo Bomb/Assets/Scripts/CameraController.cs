@@ -4,33 +4,96 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public GameObject player;
-    public float distance = 1;
-    public Vector3 angle;
-    //Vector3 offset;
+    //Player's Transform
+    public Transform obj;
 
+    //Camera's position between player.
+    float x, y, z;
+    //공의 방향을 저장하기 위한 변수
+    int Mode;
     // Use this for initialization
     void Start()
     {
-        // 캐릭터와 오프셋을 저장한다
-        //offset = transform.position - player.transform.position;
+        Mode = 0;
+
+        x = transform.position.x - obj.position.x;
+        y = transform.position.y - obj.position.y;
+        z = transform.position.z - obj.position.z;
     }
 
     // Update is called once per frame
     void Update()
     {
-        // 저장한 오프셋을 반영한다.
-        //transform.position = player.transform.position + offset;
+        //모드를 4 -> 0 으로 바꾸기 위함
+        if (Mode > 3)
+        {
+            Mode = Mode % 4;
+        }
 
-        // 공의 진행방향이 바뀌면 카메라도 같이 바뀐다.
-        //velocity는 속도여서 방향을 가지고 있다.
-        Vector3 vel = player.GetComponent<Rigidbody>().velocity;
-        //카메라는 player의 뒤쪽에 위치하므로 방향을 반대쪽으로 바꿔준다.
-        Vector3 dir = -vel;
-        //단위벡터로 만들기
-        dir.Normalize();
-        transform.position = player.transform.position + dir * distance + angle;
-        transform.forward = player.transform.position - transform.position;
- 
+        //모드를 음수에서 양수로 바꾸기 위함
+        if (Mode < 0)
+        {
+            Mode = Mode + 4;
+        }
+
+        // 현재 모드를 통해 카메라 위치를 이동시키기 위함
+        switch (Mode)
+        {
+            // 모드 0는 Z가 증가하는 방향
+            // 카메라의 위치는 Z가 음수인 방향에 있고
+            // 카메라는 Z가 양수인 방향을 바라보고 있어야 한다
+            case 0:
+                transform.position =
+                    Vector3.Lerp(transform.position,
+                    obj.transform.position + new Vector3(x, y, z),
+                    Time.deltaTime * 3);
+                transform.LookAt(obj);
+                break;
+            // 모드 1은 X가 감소하는 방향
+            // 카메라의 위치는 X가 양수인 방향에 있고
+            // 카메라는 X가 음수인 방향을 바라보고 있어야 한다
+            case 1:
+                transform.position =
+                    Vector3.Lerp(transform.position,
+                    obj.transform.position + new Vector3(-z, y, x),
+                    Time.deltaTime * 3);
+                transform.LookAt(obj);
+                break;
+            // 모드 2는 Z가 감소하는 방향
+            // 카메라의 위치는 Z가 양수인 방향에 있고
+            // 카메라는 Z가 음수인 방향을 바라보고 있어야 한다
+            case 2:
+                // 카메라 부드럽게 이동
+                transform.position =
+                    Vector3.Lerp(transform.position,
+                    obj.transform.position + new Vector3(-x, y, -z),
+                    Time.deltaTime * 3);
+                // Player 카메라 바라보기
+                transform.LookAt(obj);
+                break;
+            // 모드 3은 X가 증가하는 방향
+            // 카메라의 위치는 X가 음수인 방향에 있고
+            // 카메라는 X가 양수인 방향을 바라보고 있어야 한다
+            case 3:
+                transform.position =
+                    Vector3.Lerp(transform.position,
+                    obj.transform.position + new Vector3(z, y, -x),
+                    Time.deltaTime * 3);
+                transform.LookAt(obj);
+                break;
+        }
+
+        // 왼쪽 방향키를 입력 받았을 때
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            Mode += 1;
+        }
+
+        // 오른쪽 방향키를 입력 받았을 때
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            Mode -= 1;
+        }
+
     }
 }
