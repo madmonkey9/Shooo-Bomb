@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 
-public class GameDirector : MonoBehaviour {
+public class GameManager : MonoBehaviour {
     //canvas에 넣으세요!!!!
     //게임오버됐을때 GameOver를 보여줄 UI
     public Text gameovertext;
