@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class Player : MonoBehaviour {
 
+    public Text gameovertext;
     //공의 속도 조절을 위한 변수
     public float speed;
     //공의 방향을 설정하기 위한 변수
@@ -17,7 +19,10 @@ public class Player : MonoBehaviour {
     //마우스 눌렀을 때의 위치.
     Vector3 startPos;
     Vector3 endPos;
+    //click 지속상태
     bool click;
+    //gameover 판단
+    bool gameover;
     
  
     
@@ -42,6 +47,7 @@ public class Player : MonoBehaviour {
         tr = GetComponent<Transform>();
         //벽의 활성화 금지
         Blind_Wall.SetActive(false);
+        gameovertext.text = "";
         
     }
 
@@ -96,13 +102,7 @@ public class Player : MonoBehaviour {
             click = false;
             endPos = Input.mousePosition;
         }
-
         
-       
-
-        
-        
-
         if(Input.GetKeyDown(KeyCode.LeftArrow))
         {
             
@@ -118,12 +118,15 @@ public class Player : MonoBehaviour {
             Turn();
         }
         
-
+        if(Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            Jump();
+        }
         
 
     }
 
-    //Translate로 공을 움직이게 하는 함수
+    //벡터의 방향으로 player를 움직이는 함수
     //인자값은 방향을 나타내는 벡터
     void DefaultMove(Vector3 dir)
     {
@@ -141,8 +144,11 @@ public class Player : MonoBehaviour {
         if (click && startPos.x >= Screen.width / 2)
             tr.Translate(dir * Time.deltaTime);
     }
-    
-    
+
+    void Jump()
+    {
+
+    }
     
     //터치슬라이드했을때 90도로 진행방향 바꾸는 함수
     void Turn()
@@ -185,15 +191,28 @@ public class Player : MonoBehaviour {
     {
         if(collision.gameObject.tag == "obstacle") {
             Explode();
+            IsGameOver();
         }
 
         if(collision.gameObject.tag.Equals("wall"))
         {
             Explode();
+            IsGameOver();
         }
+        if(collision.gameObject.tag.Equals("exit")) //탈출구
+        {
+            Explode();
+            gameovertext.text = "GAME CLEAR";
+        }
+
+
     }
-
-
+    //gameover일 경우 text로 띄우기.
+    void IsGameOver()
+    {
+        gameovertext.text = "GAME OVER";
+    }
+    
     //플레이어의 크기를 2배로 증가시키는 함수
     void getBigger()
     {
@@ -250,5 +269,6 @@ public class Player : MonoBehaviour {
         Destroy(gameObject, particle.duration);
     }
 
+    
     
 }
