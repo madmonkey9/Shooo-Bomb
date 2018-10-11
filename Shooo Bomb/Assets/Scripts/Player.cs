@@ -118,7 +118,7 @@ public class Player : MonoBehaviour {
             Turn();
         }
         
-        if(Input.GetKeyDown(KeyCode.UpArrow))
+        if(Input.GetKeyDown(KeyCode.Space))
         {
             Jump();
         }
@@ -147,7 +147,7 @@ public class Player : MonoBehaviour {
 
     void Jump()
     {
-
+        rb.AddForce(Vector3.up * 100.0f);
     }
     
     //터치슬라이드했을때 90도로 진행방향 바꾸는 함수

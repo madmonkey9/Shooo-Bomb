@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour {
+   
     //canvas에 넣으세요!!!!
     //게임오버됐을때 GameOver를 보여줄 UI
     public Text gameovertext;
@@ -21,6 +22,7 @@ public class GameManager : MonoBehaviour {
     bool gameover;
 	// Use this for initialization
 	void Start () {
+       
         
         timecount.text = ((int)timeAmount).ToString();
         gameovertext.text = "";
@@ -45,4 +47,6 @@ public class GameManager : MonoBehaviour {
 
         timecount.text = ((int)timeAmount).ToString();
 	}
+
+    
 }
