@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour {
 
     //player
     bool gameover;
+    float Additional_speed = 3.0f;
+    float endTimer = 3.0f;
 
 
     [Header("Game Properties")]
@@ -84,6 +86,48 @@ public class GameManager : MonoBehaviour {
        GameResult.text = "Game Clear";
     }
 
+
+    public void getBigger(Player p)
+    {
+        p.transform.position = new Vector3(p.transform.position.x, p.transform.position.y * 2, p.transform.position.z);
+        iTween.ScaleTo(p.gameObject, p.transform.localScale * 2, 1);
+        Invoke("backupBig", endTimer);
+    }
+
+    public void getBlind(Player p)
+    {
+        p.Blind_Wall.SetActive(true);
+        Invoke("backupBlind", endTimer);
+    }
+
+    //플레이어의 속도가 2배가 되는 함수
+    public void doubleSpeed(Player p)
+    {
+        p.speed += Additional_speed;
+        Invoke("backupSpeed", endTimer);
+        
+    }
+
+    //크기 복구 함수
+    public void backupBig(Player p)
+    {
+       
+        iTween.ScaleBy(p.gameObject, p.transform.localScale / 2, 1);
+
+
+    }
+
+    //속도 복구 함수
+    public void backupSpeed(Player p)
+    {
+       p.speed -= Additional_speed;
+    }
+
+    //시야차단막 비활성화
+    public void backupBlind(Player p)
+    {
+        p.Blind_Wall.SetActive(false);
+    }
     
 
 }

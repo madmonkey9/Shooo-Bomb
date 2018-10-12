@@ -187,11 +187,11 @@ public class Player : MonoBehaviour {
             
             case "item":
                 if (itemName.Equals("item_bigger")) 
-                    getBigger();
+                    GameManager.instance.getBigger(this);
                 else if (itemName.Equals("item_speed"))
-                    doubleSpeed();
+                    GameManager.instance.doubleSpeed(this);
                 else if (itemName.Equals("item_blind"))
-                    getBlind();
+                    GameManager.instance.getBlind(this);
                 break;
             default:
                 break;
@@ -221,51 +221,7 @@ public class Player : MonoBehaviour {
     
     
     
-    //플레이어의 크기를 2배로 증가시키는 함수
-    void getBigger()
-    {
-        tr.position = new Vector3(tr.position.x, tr.position.y * 2, tr.position.z);
-        
-        iTween.ScaleTo(gameObject, tr.localScale * 2, 1);
-        Invoke("backupBig", endTimer);
-    }
-
-    //플레이어의 시야를 가리는 함수
-    void getBlind()
-    {
-        Blind_Wall.SetActive(true);
-        Invoke("backupBlind", endTimer);
-    }
-
-    //플레이어의 속도가 2배가 되는 함수
-    void doubleSpeed()
-    {
-        speed += Additional_speed;
-        Invoke("backupSpeed", endTimer);
-        
-    }
-
-    //크기 복구 함수
-    void backupBig()
-    {
-        tr.position = new Vector3(tr.position.x, tr.position.y / 2, tr.position.z);
-       
-        iTween.ScaleBy(gameObject, tr.localScale / 2, 1);
-
-
-    }
-
-    //속도 복구 함수
-    void backupSpeed()
-    {
-       speed -= Additional_speed;
-    }
-
-    //시야차단막 비활성화
-    void backupBlind()
-    {
-        Blind_Wall.SetActive(false);
-    }
+   
 
     
 
