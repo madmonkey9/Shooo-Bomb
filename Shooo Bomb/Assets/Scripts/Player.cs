@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
-    public Text gameovertext;
+    //Player의 인스턴스
+    public static Player instance;
     //공의 속도 조절을 위한 변수
     public float speed;
     //공의 방향을 설정하기 위한 변수
@@ -23,6 +24,9 @@ public class Player : MonoBehaviour {
     bool click;
     //gameover 판단
     bool gameover;
+
+    //Game Manager
+    
     
  
     
@@ -37,7 +41,14 @@ public class Player : MonoBehaviour {
     public GameObject Blind_Wall; //Blind_Wall의 오브젝트
 
 
-    
+
+
+    private void Awake()
+    {
+        
+        instance = this;
+        
+    }
     // Use this for initialization
     void Start ()
     {
@@ -47,7 +58,7 @@ public class Player : MonoBehaviour {
         tr = GetComponent<Transform>();
         //벽의 활성화 금지
         Blind_Wall.SetActive(false);
-        gameovertext.text = "";
+       
         
     }
 
@@ -190,28 +201,25 @@ public class Player : MonoBehaviour {
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.tag == "obstacle") {
-            Explode();
-            IsGameOver();
+            GameManager.instance.Explode(this);
+            GameManager.instance.GameOver();
         }
 
         if(collision.gameObject.tag.Equals("wall"))
         {
-            Explode();
-            IsGameOver();
+            GameManager.instance.Explode(this);
+            GameManager.instance.GameOver();
         }
         if(collision.gameObject.tag.Equals("exit")) //탈출구
         {
-            Explode();
-            gameovertext.text = "GAME CLEAR";
+            GameManager.instance.Explode(this);
+            GameManager.instance.GameClear();
         }
 
 
     }
-    //gameover일 경우 text로 띄우기.
-    void IsGameOver()
-    {
-        gameovertext.text = "GAME OVER";
-    }
+    
+    
     
     //플레이어의 크기를 2배로 증가시키는 함수
     void getBigger()
@@ -259,15 +267,7 @@ public class Player : MonoBehaviour {
         Blind_Wall.SetActive(false);
     }
 
-    //벽이나 장애물에 닿았을 경우 발생(폭발)
-    void Explode()
-    {
-        speed = 0;
-        //gameObject.SetActive(false);
-        rb.isKinematic = true;
-        particle.Play();
-        Destroy(gameObject, particle.duration);
-    }
+    
 
     
     
