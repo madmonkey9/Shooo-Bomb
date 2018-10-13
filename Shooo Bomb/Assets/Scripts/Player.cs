@@ -15,8 +15,6 @@ public class Player : MonoBehaviour {
     float timer = -1.0f; // 타이머가 돌지 않게 하기 위해 -1로 설정
     //공을 멈추기위한 타이머의 끝
     float E_timer = 0.2f;
-    //fast아이템을 획득한 후 속도
-    public float Additional_speed;
     //마우스 눌렀을 때의 위치.
     Vector3 startPos;
     Vector3 endPos;

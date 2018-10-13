@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour {
 
     //player
     bool gameover;
-    float Additional_speed = 3.0f;
+    float Additional_speed = 40.0f;
     float endTimer = 3.0f;
 
 
