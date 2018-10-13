@@ -141,7 +141,8 @@ public class Player : MonoBehaviour {
     //인자값은 방향을 나타내는 벡터
     void DefaultMove(Vector3 dir)
     {
-        rb.AddForce(dir.normalized * speed * Time.deltaTime );
+        //rb.AddForce(dir.normalized * speed * Time.deltaTime );
+        rb.velocity = dir * speed * Time.deltaTime;
     }
 
     void MoveLeft(Vector3 dir)
