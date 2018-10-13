@@ -58,6 +58,7 @@ public class GameManager : MonoBehaviour {
         {
             timeAmount = 0f;
             gameover = true;
+            Explode(Player.instance);
         }
 
         timecount.text = "0:" + ((int)timeAmount).ToString();
@@ -72,7 +73,7 @@ public class GameManager : MonoBehaviour {
         //gameObject.SetActive(false);
         p.GetComponent<Rigidbody>().isKinematic = true;
         p.GetComponent<ParticleSystem>().Play();
-        Destroy(p.gameObject, p.GetComponent<ParticleSystem>().duration);
+        Destroy(p.gameObject, 1.0f);
     }
 
     //gameover일 경우 text로 띄우기.
@@ -109,24 +110,24 @@ public class GameManager : MonoBehaviour {
     }
 
     //크기 복구 함수
-    public void backupBig(Player p)
+    public void backupBig()
     {
-       
-        iTween.ScaleBy(p.gameObject, p.transform.localScale / 2, 1);
+        Player.instance.transform.position = new Vector3(Player.instance.transform.position.x, Player.instance.transform.position.y / 2, Player.instance.transform.position.z);
+        iTween.ScaleBy(Player.instance.gameObject, Player.instance.transform.localScale / 2, 1);
 
 
     }
 
     //속도 복구 함수
-    public void backupSpeed(Player p)
+    public void backupSpeed()
     {
-       p.speed -= Additional_speed;
+       Player.instance.speed -= Additional_speed;
     }
 
     //시야차단막 비활성화
-    public void backupBlind(Player p)
+    public void backupBlind()
     {
-        p.Blind_Wall.SetActive(false);
+        Player.instance.Blind_Wall.SetActive(false);
     }
     
 
