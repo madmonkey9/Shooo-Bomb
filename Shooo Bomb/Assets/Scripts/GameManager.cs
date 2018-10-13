@@ -85,6 +85,7 @@ public class GameManager : MonoBehaviour {
     public void GameClear()
     {
        GameResult.text = "Game Clear";
+       Destroy(Player.instance.gameObject, 1.0f);
     }
 
 

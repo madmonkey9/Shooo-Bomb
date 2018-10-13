@@ -212,7 +212,6 @@ public class Player : MonoBehaviour {
         }
         if(collision.gameObject.tag.Equals("exit")) //탈출구
         {
-            GameManager.instance.Explode(this);
             GameManager.instance.GameClear();
         }
 
