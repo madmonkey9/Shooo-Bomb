@@ -8,6 +8,7 @@ TagManager:
   - wall
   - item
   - exit
+  - floor
   layers:
   - Default
   - TransparentFX

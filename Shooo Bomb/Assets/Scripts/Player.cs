@@ -24,6 +24,8 @@ public class Player : MonoBehaviour {
     bool click;
     //gameover 판단
     bool gameover;
+    //jump인지 아닌지 확인
+    bool isJumped = true;
 
     //Game Manager
     
@@ -131,6 +133,7 @@ public class Player : MonoBehaviour {
         
         if(Input.GetKeyDown(KeyCode.Space))
         {
+            
             Jump();
         }
         
@@ -141,7 +144,7 @@ public class Player : MonoBehaviour {
     //인자값은 방향을 나타내는 벡터
     void DefaultMove(Vector3 dir)
     {
-        rb.AddForce(dir.normalized * speed * Time.deltaTime);
+        tr.Translate(dir.normalized * speed * Time.deltaTime);
         //rb.velocity = dir * speed * Time.deltaTime;
     }
 
@@ -160,6 +163,7 @@ public class Player : MonoBehaviour {
     void Jump()
     {
         rb.AddForce(Vector3.up * jumpspeed, ForceMode.Impulse);
+        //isJumped = false;
     }
     
     //터치슬라이드했을때 90도로 진행방향 바꾸는 함수
@@ -215,6 +219,7 @@ public class Player : MonoBehaviour {
         {
             GameManager.instance.GameClear();
         }
+        
 
 
     }

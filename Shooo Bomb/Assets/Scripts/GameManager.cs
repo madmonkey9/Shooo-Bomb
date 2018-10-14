@@ -70,8 +70,7 @@ public class GameManager : MonoBehaviour {
     {
         gameover = true;
         p.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        //gameObject.SetActive(false);
-        p.GetComponent<Rigidbody>().isKinematic = true;
+        p.GetComponent<Player>().enabled = false;
         p.GetComponent<ParticleSystem>().Play();
         Destroy(p.gameObject, 1.0f);
     }
