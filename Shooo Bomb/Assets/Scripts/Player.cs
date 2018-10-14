@@ -9,6 +9,8 @@ public class Player : MonoBehaviour {
     public static Player instance;
     //공의 속도 조절을 위한 변수
     public float speed;
+    //jump속도
+    public float jumpspeed = 100f;
     //공의 방향을 설정하기 위한 변수
     int Mode;
     //공을 멈추기위한 타이머 시작
@@ -77,22 +79,22 @@ public class Player : MonoBehaviour {
 
         switch (Mode)
         {
-            case 0: // z가 증가하는 방향으로 전진
+            case 0: // z가 증가하는 방향으로 전진(0,0,1)
                 DefaultMove(Vector3.forward);
                 MoveLeft(Vector3.left);
                 MoveRight(Vector3.right);
                 break;
-            case 1: // x가 감소하는 방향으로 전진
+            case 1: // x가 감소하는 방향으로 전진(-1,0,0)
                 DefaultMove(Vector3.left);
                 MoveLeft(Vector3.back);
                 MoveRight(Vector3.forward);
                 break;
-            case 2: //z가 감소하는 방향으로 전진
+            case 2: //z가 감소하는 방향으로 전진(0,0,-1)
                 DefaultMove(Vector3.back);
                 MoveLeft(Vector3.right);
                 MoveRight(Vector3.left);
                 break;
-            case 3: // x가 증가하는 방향으로 전진
+            case 3: // x가 증가하는 방향으로 전진(1,0,0)
                 DefaultMove(Vector3.right);
                 MoveLeft(Vector3.forward);
                 MoveRight(Vector3.back);
@@ -139,8 +141,8 @@ public class Player : MonoBehaviour {
     //인자값은 방향을 나타내는 벡터
     void DefaultMove(Vector3 dir)
     {
-        //rb.AddForce(dir.normalized * speed * Time.deltaTime );
-        rb.velocity = dir * speed * Time.deltaTime;
+        rb.AddForce(dir.normalized * speed * Time.deltaTime);
+        //rb.velocity = dir * speed * Time.deltaTime;
     }
 
     void MoveLeft(Vector3 dir)
@@ -157,7 +159,7 @@ public class Player : MonoBehaviour {
 
     void Jump()
     {
-        rb.AddForce(Vector3.up * 100.0f);
+        rb.AddForce(Vector3.up * jumpspeed, ForceMode.Impulse);
     }
     
     //터치슬라이드했을때 90도로 진행방향 바꾸는 함수
