@@ -183,24 +183,14 @@ public class Player : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {
         //트리거의 태그와 이름
-        string tagName = other.gameObject.tag;
+        string itemTag = other.gameObject.tag;
         string itemName = other.gameObject.name;
 
         other.gameObject.SetActive(false);
-        switch (tagName)
-        {
-            
-            case "item":
-                if (itemName.Equals("item_bigger")) 
-                    GameManager.instance.getBigger(this);
-                else if (itemName.Equals("item_speed"))
-                    GameManager.instance.doubleSpeed(this);
-                else if (itemName.Equals("item_blind"))
-                    GameManager.instance.getBlind(this);
-                break;
-            default:
-                break;
-        }
+        if(itemTag.Equals("item"))
+            Item.instance.itemEffects(this, itemName);
+        //else if (itemTag.Equals("obstacle"))
+            //GameManager.instance.
     }
 
     private void OnCollisionEnter(Collision collision)
