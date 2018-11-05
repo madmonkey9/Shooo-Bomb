@@ -21,7 +21,7 @@ public class PresstoStart : MonoBehaviour {
         if(paused)
 		{
 			StartUI.SetActive(true);
-			Time.timeScale = 0;
+			Time.timeScale = 0.001;
 		}
         if(!paused)
 		{
