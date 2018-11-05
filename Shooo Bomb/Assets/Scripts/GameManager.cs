@@ -51,11 +51,10 @@ public class GameManager : MonoBehaviour {
             GameOver();
             
         }
-        while(!gameover)
-        {
-            //60프레임에 1초씩 줄어든다.
-            timeAmount -= Time.deltaTime;
-        }
+        
+        //60프레임에 1초씩 줄어든다.
+        timeAmount -= Time.deltaTime;
+        
    
         //timeAmount가 0이면 gameover된다
         if (timeAmount <= 0f)
@@ -72,12 +71,13 @@ public class GameManager : MonoBehaviour {
     //벽이나 장애물에 닿았을 경우 발생(폭발)
     public void Explode(Player p)
     {
-        gameover = true;
+        
         p.GetComponent<Rigidbody>().velocity = Vector3.zero;
         p.GetComponent<Player>().enabled = false;
         p.GetComponent<ParticleSystem>().Play();
         p.GetComponent<AudioSource>().Play();
         Destroy(p.gameObject, 1.0f);
+        GameOver();
     }
 
     //gameover일 경우 text로 띄우기.
@@ -89,7 +89,7 @@ public class GameManager : MonoBehaviour {
     public void GameClear()
     {
        GameResult.text = "Game Clear";
-       Destroy(Player.instance.gameObject, 1.0f);
+       
     }
 
     
