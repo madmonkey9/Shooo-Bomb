@@ -40,8 +40,6 @@ public class Player : MonoBehaviour {
     Transform tr;
     //각 아이템의 사용시간
     float endTimer = 3.0f;
-    public GameObject Blind_Wall; //Blind_Wall의 오브젝트
-
 
 
 
@@ -58,9 +56,6 @@ public class Player : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
         particle = GetComponent<ParticleSystem>();
         tr = GetComponent<Transform>();
-        //벽의 활성화 금지
-        Blind_Wall.SetActive(false);
-       
         
     }
 
