@@ -9,6 +9,7 @@ TagManager:
   - item
   - exit
   - floor
+  - Turnfloor
   layers:
   - Default
   - TransparentFX
