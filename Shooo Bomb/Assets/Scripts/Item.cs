@@ -17,7 +17,8 @@ public class Item : MonoBehaviour {
     //item을 먹었을 때 아이템의 이름에 따른 효과
     public void itemEffects(PlayerHealth p)
     {
-        switch(randomItem())
+        int itemNum = randomItem();
+        switch(itemNum)
         {
             case 1: {
                     getBigger(p);
@@ -42,6 +43,7 @@ public class Item : MonoBehaviour {
             default:
                 break;
         }
+        Debug.Log(itemNum + "called");
     }
 
     public int randomItem()

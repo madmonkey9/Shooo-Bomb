@@ -87,7 +87,8 @@ public class PlayerHealth : MonoBehaviour {
     {
         if (collision.gameObject.tag == "obstacle")
         {
-            Death();
+            currentTime -= 5;
+            //Death();
             currentState = PlayState.dead;
         }
 
