@@ -15,25 +15,39 @@ public class Item : MonoBehaviour {
     }
     
     //item을 먹었을 때 아이템의 이름에 따른 효과
-    public void itemEffects(PlayerHealth p, string itemName)
+    public void itemEffects(PlayerHealth p)
     {
-        switch(itemName)
+        switch(randomItem())
         {
-            case "item_bigger": {
+            case 1: {
                     getBigger(p);
                     break;
                 }
-            case "item_blind": {
+            case 2: {
                     getBlind(p);
                     break;
                 }
-            case "item_speed": {
+            case 3: {
                     getSpeed();
+                    break;
+                }
+            case 4:
+                {
+                    break;
+                }
+            case 5:
+                {
                     break;
                 }
             default:
                 break;
         }
+    }
+
+    public int randomItem()
+    {
+        int itemNum = (int) (Random.value * 5 + 1);
+        return itemNum;
     }
 
     //공의 크기가 두배가 커진다.

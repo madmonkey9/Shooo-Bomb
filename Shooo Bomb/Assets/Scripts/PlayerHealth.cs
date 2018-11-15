@@ -77,7 +77,7 @@ public class PlayerHealth : MonoBehaviour {
 
         other.gameObject.SetActive(false);
         if (itemTag.Equals("item"))
-            Item.instance.itemEffects(instance, itemName);
+            Item.instance.itemEffects(instance);
         //else if (itemTag.Equals("obstacle"))
         //GameManager.instance.
     }
