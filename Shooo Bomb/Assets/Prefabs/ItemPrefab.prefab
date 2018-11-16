@@ -404,6 +404,66 @@ MonoBehaviour:
       loopTypeValue: 0
       namedValueColorValue: 0
       spaceValue: 0
+    - argName: looptype
+      argDisplayName: Loop Type
+      typeOfArg: 43
+      allowedDisplayTypes: 1100000003000000
+      typeOfDisplay: 17
+      intValue: 0
+      floatValue: 0
+      doubleValue: 0
+      stringValue: 
+      boolValue: 0
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      audioSourceValue: {fileID: 0}
+      audioClipValue: {fileID: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+      vector3ArrayValue: []
+      vector2Value: {x: 0, y: 0}
+      transformValue: {fileID: 0}
+      transformArrayValue: []
+      rectValue:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 0
+        height: 0
+      easeTypeValue: 0
+      loopTypeValue: 1
+      namedValueColorValue: 0
+      spaceValue: 0
+    - argName: speed
+      argDisplayName: Speed
+      typeOfArg: 3
+      allowedDisplayTypes: 0100000002000000
+      typeOfDisplay: 1
+      intValue: 0
+      floatValue: 10
+      doubleValue: 0
+      stringValue: 
+      boolValue: 0
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      audioSourceValue: {fileID: 0}
+      audioClipValue: {fileID: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+      vector3ArrayValue: []
+      vector2Value: {x: 0, y: 0}
+      transformValue: {fileID: 0}
+      transformArrayValue: []
+      rectValue:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 0
+        height: 0
+      easeTypeValue: 0
+      loopTypeValue: 0
+      namedValueColorValue: 0
+      spaceValue: 0
     basicParams: 000000000e00000024000000
     allParams: 00000000010000000e0000001700000018000000190000001c0000002400000003000000250000002a0000002b0000002c0000002d0000002e0000002f000000300000003100000032000000330000003400000035000000
   - iTweenName: Rotate By
@@ -470,6 +530,66 @@ MonoBehaviour:
       loopTypeValue: 0
       namedValueColorValue: 0
       spaceValue: 0
+    - argName: speed
+      argDisplayName: Speed
+      typeOfArg: 3
+      allowedDisplayTypes: 0100000002000000
+      typeOfDisplay: 1
+      intValue: 0
+      floatValue: 10
+      doubleValue: 0
+      stringValue: 
+      boolValue: 0
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      audioSourceValue: {fileID: 0}
+      audioClipValue: {fileID: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+      vector3ArrayValue: []
+      vector2Value: {x: 0, y: 0}
+      transformValue: {fileID: 0}
+      transformArrayValue: []
+      rectValue:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 0
+        height: 0
+      easeTypeValue: 0
+      loopTypeValue: 0
+      namedValueColorValue: 0
+      spaceValue: 0
+    - argName: looptype
+      argDisplayName: Loop Type
+      typeOfArg: 43
+      allowedDisplayTypes: 1100000003000000
+      typeOfDisplay: 17
+      intValue: 0
+      floatValue: 0
+      doubleValue: 0
+      stringValue: 
+      boolValue: 0
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      audioSourceValue: {fileID: 0}
+      audioClipValue: {fileID: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+      vector3ArrayValue: []
+      vector2Value: {x: 0, y: 0}
+      transformValue: {fileID: 0}
+      transformArrayValue: []
+      rectValue:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 0
+        height: 0
+      easeTypeValue: 0
+      loopTypeValue: 1
+      namedValueColorValue: 0
+      spaceValue: 0
     basicParams: 000000000e00000024000000
     allParams: 00000000010000000e0000001700000018000000190000001c0000002400000003000000250000002a0000002b0000002c0000002d0000002e0000002f000000300000003100000032000000330000003400000035000000
   - iTweenName: Rotate By
@@ -534,6 +654,66 @@ MonoBehaviour:
         height: 0
       easeTypeValue: 0
       loopTypeValue: 0
+      namedValueColorValue: 0
+      spaceValue: 0
+    - argName: speed
+      argDisplayName: Speed
+      typeOfArg: 3
+      allowedDisplayTypes: 0100000002000000
+      typeOfDisplay: 1
+      intValue: 0
+      floatValue: 10
+      doubleValue: 0
+      stringValue: 
+      boolValue: 0
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      audioSourceValue: {fileID: 0}
+      audioClipValue: {fileID: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+      vector3ArrayValue: []
+      vector2Value: {x: 0, y: 0}
+      transformValue: {fileID: 0}
+      transformArrayValue: []
+      rectValue:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 0
+        height: 0
+      easeTypeValue: 0
+      loopTypeValue: 0
+      namedValueColorValue: 0
+      spaceValue: 0
+    - argName: looptype
+      argDisplayName: Loop Type
+      typeOfArg: 43
+      allowedDisplayTypes: 1100000003000000
+      typeOfDisplay: 17
+      intValue: 0
+      floatValue: 0
+      doubleValue: 0
+      stringValue: 
+      boolValue: 0
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      audioSourceValue: {fileID: 0}
+      audioClipValue: {fileID: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+      vector3ArrayValue: []
+      vector2Value: {x: 0, y: 0}
+      transformValue: {fileID: 0}
+      transformArrayValue: []
+      rectValue:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 0
+        height: 0
+      easeTypeValue: 0
+      loopTypeValue: 1
       namedValueColorValue: 0
       spaceValue: 0
     basicParams: 000000000e00000024000000
