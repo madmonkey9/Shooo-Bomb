@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour {
     public float jump_speed;
     //턴할수있는 임계값속도
     public float threshold;
+    public bool isStarted = false;
     
     //player forward 방향
     Vector3 dir_forward = Vector3.forward;
@@ -45,6 +46,7 @@ public class PlayerMovement : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
+        
 
         Vector3 vel = new Vector3();
 
@@ -90,8 +92,9 @@ public class PlayerMovement : MonoBehaviour {
         {
             BallControllRight();
         }
-        
-        BallMovement(dir_forward);
+        //바닥에 충돌하면 그때부터 전진
+        if(isStarted)
+            BallMovement(dir_forward);
     }
 
     //player를 왼쪽으로 이동할 수 있는 함수
@@ -142,6 +145,7 @@ public class PlayerMovement : MonoBehaviour {
         if (collision.collider.tag == "floor")
         {
             isJump = false;
+            isStarted = true;
         }
     }
 
@@ -155,6 +159,10 @@ public class PlayerMovement : MonoBehaviour {
         }
 
     }
+
+   
+
+
 
 
 

@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour {
     //게임끝나고 결과 보여줄 text UI
     [SerializeField]
     Text GameResult;
+    //시작되었는지 확인
+    bool isStarted = false;
 
     PlayerHealth playertime;
 	// Use this for initialization
@@ -19,6 +21,9 @@ public class GameManager : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        if (!isStarted && Time.timeScale == 1.0f)
+            GameStart();
+
         if (playertime.GetCurrentState() == PlayerHealth.PlayState.dead)
         {
             GameOver();
@@ -30,12 +35,19 @@ public class GameManager : MonoBehaviour {
 
 	}
 
+    //시작되면 오디오 시작
+    public void GameStart()
+    {
+        isStarted = true;
+        GetComponent<AudioSource>().Play();
+    }
 
 
     //gameover일 경우 text로 띄우기.
     public void GameOver()
     {
         GameResult.text = "Game Over";
+        GetComponent<AudioSource>().Stop();
     }
 
     public void GameClear()

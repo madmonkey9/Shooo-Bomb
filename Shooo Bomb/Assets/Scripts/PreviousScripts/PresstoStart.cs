@@ -27,7 +27,7 @@ public class PresstoStart : MonoBehaviour {
 		{
 			StartUI.SetActive(false);
 			Time.timeScale = 1f;
-		}
+        }
 		
 	}
 }

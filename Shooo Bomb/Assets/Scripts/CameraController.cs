@@ -21,6 +21,7 @@ public class CameraController : MonoBehaviour {
 	void Start () {
         //플레이어 태그를로 플레이어 게임 오브젝트를 찾는다.
         player = GameObject.FindGameObjectWithTag("Player");
+        
         offsetDir =  transform.position - player.transform.position;
         offsetDir.Normalize();
     }
