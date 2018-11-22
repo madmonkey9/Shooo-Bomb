@@ -78,20 +78,16 @@ public class PlayerHealth : MonoBehaviour {
         other.gameObject.SetActive(false);
         if (itemTag.Equals("item"))
             Item.instance.itemEffects(instance);
-        //else if (itemTag.Equals("obstacle"))
+        else if (itemTag.Equals("obstacle")) //장애물 부딫혔을 때 5초를 깎음
+        {
+            currentTime -= 5;
+        }
         //GameManager.instance.
     }
 
     //장애물충돌했을때.
     private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "obstacle")
-        {
-            currentTime -= 5;
-            //Death();
-            currentState = PlayState.dead;
-        }
-
+    { 
         if (collision.gameObject.tag.Equals("wall"))
         {
             Death();
@@ -105,4 +101,6 @@ public class PlayerHealth : MonoBehaviour {
 
 
     }
+
+    
 }
