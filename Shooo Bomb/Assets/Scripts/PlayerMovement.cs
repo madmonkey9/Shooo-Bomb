@@ -156,6 +156,7 @@ public class PlayerMovement : MonoBehaviour {
         if (other.tag == "Turnfloor")
         {
             canTurn = true;
+            Debug.Log("canTurn trigger true");
         }
 
     }
