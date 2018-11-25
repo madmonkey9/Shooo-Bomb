@@ -97,19 +97,15 @@ public class PlayerHealth : MonoBehaviour {
         {
             currentState = PlayState.clear;
             GameObject.Find("UICanvas").transform.Find("Stage1ClearPanel").gameObject.SetActive(true);
-            Time.timeScale = 0;
+            Time.timeScale = 0.01f;
         }
 
         if (collision.gameObject.tag.Equals("Stage2exit")) // Stage2 Clear
         {
             currentState = PlayState.clear;
             GameObject.Find("UICanvas").transform.Find("Stage2ClearPanel").gameObject.SetActive(true);
-            Time.timeScale = 0;
+            Time.timeScale = 0.01f;
         }
 
-
-
     }
-
-    
 }

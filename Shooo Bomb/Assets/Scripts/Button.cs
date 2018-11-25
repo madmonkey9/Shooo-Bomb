@@ -16,4 +16,9 @@ public class Button : MonoBehaviour {
     {
         Application.Quit();
     }
+
+    public void Intro_Game()
+    {
+        LoadingSceneManager.LoadScene("IntroScene");
+    }
 }
