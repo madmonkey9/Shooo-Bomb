@@ -61,6 +61,9 @@ public class PlayerHealth : MonoBehaviour {
         GetComponent<PlayerMovement>().enabled = false;
         main_Camera.enabled = false;
         Destroy(gameObject, 1.0f);
+
+        GameObject.Find("UICanvas").transform.Find("GameOverPanel").gameObject.SetActive(true); // 죽었을 때 GameOverUI 표시
+        Time.timeScale = 0.01f;
     }
     //현재 플레이어의 상태
     public PlayState GetCurrentState()
