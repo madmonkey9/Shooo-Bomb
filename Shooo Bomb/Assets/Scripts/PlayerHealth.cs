@@ -93,9 +93,18 @@ public class PlayerHealth : MonoBehaviour {
             Death();
             currentState = PlayState.dead;
         }
-        if (collision.gameObject.tag.Equals("exit")) //탈출구
+        if (collision.gameObject.tag.Equals("Stage1exit")) // Stage1 Clear
         {
             currentState = PlayState.clear;
+            GameObject.Find("UICanvas").transform.Find("Stage1ClearPanel").gameObject.SetActive(true);
+            Time.timeScale = 0;
+        }
+
+        if (collision.gameObject.tag.Equals("Stage2exit")) // Stage2 Clear
+        {
+            currentState = PlayState.clear;
+            GameObject.Find("UICanvas").transform.Find("Stage2ClearPanel").gameObject.SetActive(true);
+            Time.timeScale = 0;
         }
 
 
