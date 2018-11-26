@@ -15,10 +15,13 @@ public class PlayerMovement : MonoBehaviour {
     
     //player forward 방향
     Vector3 dir_forward = Vector3.forward;
+
+    //컨트롤러의 방향을 바꾸기 위해서 item.cs에서 접근할 수 있도록 Public으로 수정
+
     //player left 방향
-    Vector3 dir_left = Vector3.left;
+    public Vector3 dir_left = Vector3.left;
     //player right 방향
-    Vector3 dir_right = Vector3.right;
+    public Vector3 dir_right = Vector3.right;
     
     //누적회전값.
     float rotateY;

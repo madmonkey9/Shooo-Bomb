@@ -32,8 +32,8 @@ public class Item : MonoBehaviour {
                     getSpeed();
                     break;
                 }
-            case 4:
-                {
+            case 4:{
+                    getReverse();
                     break;
                 }
             case 5:
@@ -75,6 +75,14 @@ public class Item : MonoBehaviour {
 
     }
 
+    //플레이어의 컨트롤러가 반대로 바뀌는 함수
+    public void getReverse()
+    {
+        PlayerHealth.instance.GetComponent<PlayerMovement>().dir_left = Vector3.right;
+        PlayerHealth.instance.GetComponent<PlayerMovement>().dir_right = Vector3.left;
+        Invoke("backupController", endTimer);
+    }
+
     //크기 복구 함수
     public void backupBig()
     {
@@ -87,6 +95,13 @@ public class Item : MonoBehaviour {
     public void backupSpeed()
     {
         PlayerHealth.instance.GetComponent<GameObject>().GetComponent<PlayerMovement>().forward_speed -= Additional_speed;
+    }
+
+    //컨트롤러 복구 함수
+    public void backupController()
+    {
+        PlayerHealth.instance.GetComponent<PlayerMovement>().dir_left = Vector3.left;
+        PlayerHealth.instance.GetComponent<PlayerMovement>().dir_right = Vector3.right;
     }
 
     //시야차단막 비활성화
