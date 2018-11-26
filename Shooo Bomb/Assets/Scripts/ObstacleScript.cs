@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ObstacleScript : MonoBehaviour {
     public ObstacleScript instance;
+
     float maintainTime;
     float speed;
     Transform tr;
@@ -13,10 +14,11 @@ public class ObstacleScript : MonoBehaviour {
     {
         instance = this;
         tr = GetComponent<Transform>();
+
     }
     // Use this for initialization
     void Start () {
-        speed = Random.RandomRange(0, 5);
+        speed = 5.0f;
 	}
 	
 	// Update is called once per frame
@@ -28,4 +30,10 @@ public class ObstacleScript : MonoBehaviour {
             Destroy(gameObject);
         }
 	}
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        
+    }
 }
