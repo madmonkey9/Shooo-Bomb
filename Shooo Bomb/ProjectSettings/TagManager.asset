@@ -12,6 +12,8 @@ TagManager:
   - Turnfloor
   - Stage1exit
   - Stage2exit
+  - Stage3exit
+  - Stage4exit
   layers:
   - Default
   - TransparentFX
