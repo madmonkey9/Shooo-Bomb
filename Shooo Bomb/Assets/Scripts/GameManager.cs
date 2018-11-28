@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour {
     Text GameResult;
     //시작되었는지 확인
     bool isStarted = false;
+    //시간이 얼마 안 남았을 때 나오는 시계소리의 불값
+    bool isOvertime = false;
 
     PlayerHealth playertime;
 	// Use this for initialization
@@ -23,7 +25,17 @@ public class GameManager : MonoBehaviour {
     {
         if (!isStarted && Time.timeScale == 1.0f)
             GameStart();
+        if(playertime.getCurrentTime() <= 10.0f && isOvertime != true)
+        {
+            isOvertime = true;
+            GetComponent<AudioSource>().Play();
+        }
 
+        if(playertime.getCurrentTime() > 10.0f && isOvertime != false)
+        {
+            isOvertime = false;
+            GetComponent<AudioSource>().Stop();
+        }
         if (playertime.GetCurrentState() == PlayerHealth.PlayState.dead)
         {
             GameOver();
@@ -39,7 +51,7 @@ public class GameManager : MonoBehaviour {
     public void GameStart()
     {
         isStarted = true;
-        GetComponent<AudioSource>().Play();
+        //GetComponent<AudioSource>().Play();
     }
 
 
@@ -53,6 +65,7 @@ public class GameManager : MonoBehaviour {
     public void GameClear()
     {
         GameResult.text = "Game Clear";
+        GetComponent<AudioSource>().Stop();
 
     }
 

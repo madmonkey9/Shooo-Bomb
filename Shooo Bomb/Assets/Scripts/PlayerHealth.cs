@@ -51,6 +51,10 @@ public class PlayerHealth : MonoBehaviour {
         }
 	}
 
+    public float getCurrentTime()
+    {
+        return currentTime;
+    }
     //죽었을때 이펙트 넣어주고 플레이어 파괴하기.
     void Death()
     {
@@ -83,7 +87,7 @@ public class PlayerHealth : MonoBehaviour {
             Item.instance.itemEffects(instance);
         else if (itemTag.Equals("obstacle")) //장애물 부딫혔을 때 5초를 깎음
         {
-            currentTime -= 5;
+            currentTime -= 1.0f;
         }
         //GameManager.instance.
     }
