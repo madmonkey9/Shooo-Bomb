@@ -7,6 +7,7 @@ public class Item : MonoBehaviour {
     public static Item instance;
     float endTimer = 3.0f;
     float Additional_speed = 3.0f;
+    bool isStopped = false;
 
     void Awake()
     {
@@ -38,6 +39,7 @@ public class Item : MonoBehaviour {
                 }
             case 5:
                 {
+                    stopTime();
                     break;
                 }
             default:
@@ -108,5 +110,18 @@ public class Item : MonoBehaviour {
     public void backupBlind()
     {
         PlayerHealth.instance.Blind_Wall.SetActive(false);
+    }
+
+    //시간 멈추는 함수
+    public void stopTime()
+    {
+        isStopped = !isStopped;
+        if (isStopped == true)
+        {
+            PlayerHealth.instance.currentTime += Time.deltaTime;
+            Invoke("stopTime", endTimer);
+        }
+        else
+            return;
     }
 }
