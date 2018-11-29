@@ -30,6 +30,8 @@ public class LoadingSceneManager : MonoBehaviour {
         AsyncOperation op = SceneManager.LoadSceneAsync(nextScene);
         op.allowSceneActivation = false;
 
+        Application.backgroundLoadingPriority = UnityEngine.ThreadPriority.Low;
+
         float timer = 0.0f;
         while (!op.isDone)
         {
@@ -44,6 +46,7 @@ public class LoadingSceneManager : MonoBehaviour {
                 if (progressBar.fillAmount == 1.0f)
                     op.allowSceneActivation = true;
             }
+
             else
             {
                 progressBar.fillAmount = Mathf.Lerp(progressBar.fillAmount, op.progress, timer);

@@ -8,6 +8,7 @@ public class Button : MonoBehaviour {
     // Start_Game() 함수는 IntroScene이 있는 Scenes 폴더 내의 GameScene을 불러온다.
     public void Start_Game()
     {
+        Time.timeScale = 1.0f;
         LoadingSceneManager.LoadScene("GameScene");
     }
 
@@ -19,6 +20,7 @@ public class Button : MonoBehaviour {
 
     public void Intro_Game()
     {
+        Time.timeScale = 1.0f;
         LoadingSceneManager.LoadScene("IntroScene");
     }
 }
