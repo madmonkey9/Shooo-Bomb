@@ -12,11 +12,11 @@ public class PlayerMovement : MonoBehaviour {
     //턴할수있는 임계값속도
     public float threshold;
     public bool isStarted = false;
-    
-    //player forward 방향
-    Vector3 dir_forward = Vector3.forward;
 
     //컨트롤러의 방향을 바꾸기 위해서 item.cs에서 접근할 수 있도록 Public으로 수정
+
+    //player forward 방향
+    public Vector3 dir_forward = Vector3.forward;
 
     //player left 방향
     public Vector3 dir_left = Vector3.left;
@@ -36,16 +36,15 @@ public class PlayerMovement : MonoBehaviour {
     bool canTurn = false;
     //바닥에 있는지 확인 할 Y값
     bool isJump = false;
-    //리지드 바디;
-    Rigidbody rb;
+    //리지드 바디, item.cs에서 값을 바꾸기 위해 public으로 선언.
+    public Rigidbody rb;
     //파티클 시스템
     ParticleSystem particle;
-    
 
     // Use this for initialization
     void Start () {
         rb = GetComponent<Rigidbody>();
-	}
+    }
 
     // Update is called once per frame
     void Update() {
@@ -103,13 +102,13 @@ public class PlayerMovement : MonoBehaviour {
     //player를 왼쪽으로 이동할 수 있는 함수
     void BallControllLeft()
     {
-        transform.Translate(dir_left * controll_speed * Time.deltaTime);
+        rb.AddForce(dir_left * controll_speed * 15);
     }
     
     //player를 오른쪽으로 이동할 수 있는 함수
     void BallControllRight()
     {
-        transform.Translate(dir_right * controll_speed * Time.deltaTime);
+        rb.AddForce(dir_right * controll_speed * 15);
     }
 
     //player를 왼쪽으로 -90도 Turn할 수 있는 함수
