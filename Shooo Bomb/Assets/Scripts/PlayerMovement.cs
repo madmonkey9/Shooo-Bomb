@@ -72,17 +72,17 @@ public class PlayerMovement : MonoBehaviour {
 
         //입력값을 통해 player 움직이기
         //turn을 할 수 있는 지역에 들어왔는가. 확인하고 true면 turn만, false면 controll만
-        if (vel.x < -threshold && canTurn)
+        if (vel.x < -threshold && canTurn || Input.GetKeyDown(KeyCode.LeftArrow) && canTurn)
         {
             BallTurnLeft();
             canTurn = false; //한 구역에서 턴은 한번밖에 못함.
         }
-        else if (vel.x > threshold && canTurn)
+        else if (vel.x > threshold && canTurn || Input.GetKeyDown(KeyCode.RightArrow) && canTurn)
         {
             BallTurnRight();
             canTurn = false;
         }
-        else if (vel.y > threshold && !isJump)
+        else if (vel.y > threshold && !isJump || Input.GetKeyDown(KeyCode.UpArrow) && !isJump)
         {
                 Jump();
         }
