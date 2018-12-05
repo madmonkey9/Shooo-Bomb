@@ -67,7 +67,8 @@ public class PlayerHealth : MonoBehaviour {
         Destroy(gameObject, 1.0f);
 
         GameObject.Find("UICanvas").transform.Find("GameOverPanel").gameObject.SetActive(true); // 죽었을 때 GameOverUI 표시
-        Time.timeScale = 0.01f;
+        // Time.timeScale = 0.01f;
+        Time.timeScale = 1.0f;
     }
     //현재 플레이어의 상태
     public PlayState GetCurrentState()
@@ -100,32 +101,33 @@ public class PlayerHealth : MonoBehaviour {
             Death();
             currentState = PlayState.dead;
         }
+
         if (collision.gameObject.tag.Equals("Stage1exit")) // Stage1 Clear
         {
             currentState = PlayState.clear;
             GameObject.Find("UICanvas").transform.Find("Stage1ClearPanel").gameObject.SetActive(true);
-            Time.timeScale = 0.01f;
+            Time.timeScale = 1.0f;
         }
 
         if (collision.gameObject.tag.Equals("Stage2exit")) // Stage2 Clear
         {
             currentState = PlayState.clear;
             GameObject.Find("UICanvas").transform.Find("Stage2ClearPanel").gameObject.SetActive(true);
-            Time.timeScale = 0.01f;
+            Time.timeScale = 1.0f;
         }
 
         if (collision.gameObject.tag.Equals("Stage3exit")) // Stage3 Clear
         {
             currentState = PlayState.clear;
             GameObject.Find("UICanvas").transform.Find("Stage3ClearPanel").gameObject.SetActive(true);
-            Time.timeScale = 0.01f;
+            Time.timeScale = 1.0f;
         }
 
         if (collision.gameObject.tag.Equals("Stage4exit")) // Stage4 Clear
         {
             currentState = PlayState.clear;
             GameObject.Find("UICanvas").transform.Find("Stage4ClearPanel").gameObject.SetActive(true);
-            Time.timeScale = 0.01f;
+            Time.timeScale = 1.0f;
         }
     }
 }
