@@ -19,7 +19,7 @@ public class Item : MonoBehaviour {
     public void itemEffects(PlayerHealth p)
     {
         int itemNum = randomItem();
-        switch(7)
+        switch(itemNum)
         {
             // 플레이어의 크기가 커지는 아이템
             case 1:
