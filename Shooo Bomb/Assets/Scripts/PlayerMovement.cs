@@ -102,13 +102,13 @@ public class PlayerMovement : MonoBehaviour {
     //player를 왼쪽으로 이동할 수 있는 함수
     void BallControllLeft()
     {
-        rb.AddForce(dir_left * controll_speed * 15);
+        rb.AddRelativeForce(dir_left * controll_speed * 15);
     }
     
     //player를 오른쪽으로 이동할 수 있는 함수
     void BallControllRight()
     {
-        rb.AddForce(dir_right * controll_speed * 15);
+        rb.AddRelativeForce(dir_right * controll_speed * 15);
     }
 
     //player를 왼쪽으로 -90도 Turn할 수 있는 함수
