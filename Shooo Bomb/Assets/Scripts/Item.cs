@@ -25,25 +25,25 @@ public class Item : MonoBehaviour {
             case 1:
                 getBigger(p);
                 break;
-            // 가림막이 활성화되는 아이템
-            case 2: 
-                getBlind(p);
-                break;
             // 플레이어의 이동속도가 증가하는 아이템
-            case 3: 
+            case 2: 
                 getSpeed();
                 break;
             // 방향키가 반대로 되는 아이템
-            case 4:
+            case 3: 
                 reverse();
                 break;
             // 시간을 멈추는 아이템
-            case 5:
+            case 4:
                 stopTime();
                 break;
             // 플레이어가 뒤로가게 하는 아이템
-            case 6:
+            case 5:
                 reverseForward();
+                break;
+            // 가림막이 활성화되는 아이템
+            case 6:
+                getBlind(p);
                 break;
             // 플레이어가 미끄러지도록 하는 아이템
             case 7:
@@ -57,10 +57,10 @@ public class Item : MonoBehaviour {
 
     public int randomItem()
     {
-        int itemNum = (int) (Random.value * 10 - 3);
+        int itemNum = (int) (Random.value * 10 - 5);
         if(itemNum<= 0)
         {
-            itemNum += 3;
+            itemNum += 5;
             return itemNum;
         }
         else
@@ -159,7 +159,7 @@ public class Item : MonoBehaviour {
         isStopped = !isStopped;
         if (isStopped == true)
         {
-            PlayerHealth.instance.currentTime += Time.deltaTime;
+            PlayerHealth.instance.currentTime += 3;
             Invoke("stopTime", endTimer);
         }
         else
