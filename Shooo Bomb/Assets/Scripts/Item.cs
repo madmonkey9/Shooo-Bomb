@@ -57,8 +57,16 @@ public class Item : MonoBehaviour {
 
     public int randomItem()
     {
-        int itemNum = (int) (Random.value * 5 + 1);
-        return itemNum;
+        int itemNum = (int) (Random.value * 10 - 3);
+        if(itemNum<= 0)
+        {
+            itemNum += 3;
+            return itemNum;
+        }
+        else
+        {
+            return itemNum;
+        }
     }
 
     //공의 크기가 두배가 커진다.
